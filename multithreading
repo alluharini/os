@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <pthread.h>
+
+void* task(void* arg) {
+    printf("Task %s is running\n", (char*)arg);
+    return NULL;
+}
+
+int main() {
+    pthread_t threads[3];
+    char* names[] = {"Thread-1", "Thread-2", "Thread-3"};
+
+    for (int i = 0; i < 3; i++) {
+        pthread_create(&threads[i], NULL, task, (void*)names[i]);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    return 0;
+}
